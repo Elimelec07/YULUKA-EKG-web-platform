@@ -12,7 +12,7 @@ El sistema opera bajo un modelo cliente-servidor (Local-Cloud) para optimizar la
 
 2. **Frontend Interactivo (Web):**
    - Interfaz responsiva con **HTML5/CSS3** y **Tailwind CSS**.
-   - Visualización dinámica de señales con **Plotly.js** y **D3.js** para mostrar la "armonización" de la señal[cite: 1].
+   - Visualización dinámica de señales con **Plotly.js** y **D3.js** para mostrar la "armonización" de la señal.
 
 ## 🔄 Pipeline de Procesamiento (Yuluka Flow)
 Siguiendo la estructura del proyecto, la señal atraviesa las siguientes etapas:
