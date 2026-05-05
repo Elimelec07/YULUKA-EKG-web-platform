@@ -96,3 +96,5 @@ Yuluka‑ECG se posiciona como una **herramienta de aprendizaje interactiva** qu
 
 📘 **Contacto y Proyecto Académico**  
 Proyecto desarrollado con fines educativos y de investigación en procesamiento de bioseñales.
+* 📚 **[Versión Extendida del Estado del Arte](ESTADO%20DEL%20ARTE%20Y%20DE%20LA%20TÉCNICA.docx):** Documento original completo con todas las referencias bibliográficas.
+
