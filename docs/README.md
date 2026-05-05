@@ -20,3 +20,11 @@ Siguiendo la estructura del proyecto, la señal atraviesa las siguientes etapas:
 2. **Filtrado:** Aplicación de filtros Notch y Wavelet para alcanzar el estado de "Yuluka" (señal pura).
 3. **Detección:** Algoritmo Pan-Tompkins para identificar complejos QRS.
 4. **Análisis:** Extracción de características HRV y clasificación con Deep Learning[cite: 1].
+
+# 📂 Documentación y Fundamentación Yuluka-ECG
+
+En esta sección se encuentra la base científica y técnica que soporta las decisiones de diseño de la plataforma.
+
+### Enlaces rápidos a los entregables:
+* 📄 **[Resumen del Reporte de Fundamentación](reporte_fundamentacion.md):** Justificación técnica y resumen del estado del arte.
+* 📚 **[Versión Extendida del Estado del Arte](ESTADO%20DEL%20ARTE%20Y%20DE%20LA%20TÉCNICA.docx):** Documento original completo con todas las referencias bibliográficas.
