@@ -19,7 +19,7 @@ Siguiendo la estructura del proyecto, la señal atraviesa las siguientes etapas:
 1. **Ingesta:** Carga de registros crudos en formato CSV/JSON.
 2. **Filtrado:** Aplicación de filtros Notch y Wavelet para alcanzar el estado de "Yuluka" (señal pura).
 3. **Detección:** Algoritmo Pan-Tompkins para identificar complejos QRS.
-4. **Análisis:** Extracción de características HRV y clasificación con Deep Learning[cite: 1].
+4. **Análisis:** Extracción de características HRV y clasificación con Deep Learning.
 
 # 📂 Documentación y Fundamentación Yuluka-ECG
 
