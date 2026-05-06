@@ -6,17 +6,17 @@
 El sistema opera bajo un modelo cliente-servidor (Local-Cloud) para optimizar la latencia y la capacidad de cómputo:
 
 1. **Backend Científico (Python):** 
-   - Desarrollado con **FastAPI** para exposición de servicios REST.
+   - Desarrollado con **Flask** para exposición de servicios REST.
    - Procesamiento de señales con **NumPy**, **SciPy** y **PyWavelets**.
-   - Acceso a bases de datos **WFDB** (MIT-BIH).
+   - Acceso a bases de datos **PTB-XL**.
 
 2. **Frontend Interactivo (Web):**
-   - Interfaz responsiva con **HTML5/CSS3** y **Tailwind CSS**.
+   - Interfaz responsiva con **HTML5/CSS3**.
    - Visualización dinámica de señales con **Plotly.js** y **D3.js** para mostrar la "armonización" de la señal.
 
 ## 🔄 Pipeline de Procesamiento (Yuluka Flow)
 Siguiendo la estructura del proyecto, la señal atraviesa las siguientes etapas:
-1. **Ingesta:** Carga de registros crudos en formato CSV/JSON.
+1. **Ingesta:** Carga de registros crudos de la base de datos PTB-XL.
 2. **Filtrado:** Aplicación de filtros Notch y Wavelet para alcanzar el estado de "Yuluka" (señal pura).
 3. **Detección:** Algoritmo Pan-Tompkins para identificar complejos QRS.
 4. **Análisis:** Extracción de características HRV y clasificación con Deep Learning.
