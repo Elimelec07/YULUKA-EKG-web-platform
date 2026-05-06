@@ -17,7 +17,6 @@ El alcance del diseño técnico de Yuluka‑ECG abarca:
 
 - Procesamiento automático de señales ECG previamente adquiridas.
 - Aplicación de técnicas de filtrado digital para reducción de ruido.
-- Detección de eventos cardíacos relevantes (complejos QRS).
 - Visualización interactiva de señales y métricas.
 - Uso con fines **educativos y formativos** para personal del área de la salud.
 
@@ -58,11 +57,10 @@ Proporcionar una interfaz gráfica accesible e interactiva para la visualizació
 
 **Funciones principales:**
 - Carga de señales ECG desde el backend.
-- Visualización de señal cruda y señal filtrada.
-- Comparación entre métodos de filtrado.
+- Visualización de señal.
 - Visualización de eventos detectados (picos R).
-- Interacción diferenciada para usuarios expertos y no expertos.
 
+  
 ---
 
 ### 4.2 Backend (API REST)
@@ -72,8 +70,7 @@ Gestionar la lógica del sistema y ejecutar los algoritmos de procesamiento de s
 
 **Tecnologías utilizadas:**
 - Python  
-- FastAPI  
-- Pydantic  
+- Flask    
 
 **Responsabilidades:**
 - Exponer servicios REST para carga y procesamiento de señales ECG.
@@ -99,23 +96,20 @@ Este módulo constituye el núcleo funcional del sistema.
 - NeuroKit2  
 
 **Objetivo educativo:**  
-Permitir observar el impacto de distintas técnicas de filtrado y detección sobre la señal ECG.
-
+Optimizar el proceso de enseñanza y aprendizaje de señales electrocardiográficas (ECG) mediante una plataforma web interactiva que integre herramientas de procesamiento preciso y funciones de asistencia al usuario. 
 ---
 
 ### 4.4 Capa de Datos
 
 **Origen de los datos:**
-- PhysioNet – MIT‑BIH Arrhythmia Database.
+- PhysioNet – PTB-XL, a large publicly available electrocardiography dataset.
 
 **Formatos de trabajo:**
 - WFDB (formato original).
-- CSV / JSON (intercambio con la API).
 
 **Uso de los datos:**
 - Demostración.
 - Aprendizaje.
-- Validación de algoritmos.
 
 No se almacenan datos personales identificables.
 
@@ -126,7 +120,7 @@ No se almacenan datos personales identificables.
 El procesamiento de una señal ECG en Yuluka‑ECG sigue las siguientes etapas:
 
 1. **Ingesta:**  
-   Carga de registros ECG en formato CSV o JSON.
+   Carga de registros ECG en formato WFDB.
 
 2. **Filtrado:**  
    Aplicación de filtros Notch y Wavelet para alcanzar el estado de *Yuluka* (señal depurada).
@@ -147,18 +141,18 @@ El procesamiento de una señal ECG en Yuluka‑ECG sigue las siguientes etapas:
 | Componente | Tecnología |
 |---------|-----------|
 | Lenguaje principal | Python |
-| Backend | FastAPI |
+| Backend | Flask |
 | Procesamiento de señales | NumPy, SciPy |
 | Bioseñales | BioSPPy, NeuroKit2 |
 | Frontend | HTML, CSS, JavaScript |
 | Visualización | Plotly.js |
-| Dataset | WFDB – PhysioNet |
+| Dataset | PTB-XL – PhysioNet |
 
 ---
 
 ## 7. Consideraciones Técnicas
 
-- **Rendimiento:** Optimizado para uso educativo en tiempo casi real.
+- **Rendimiento:** Optimizado para uso educativO.
 - **Escalabilidad:** Posibilidad de delegar tareas complejas a la nube.
 - **Usabilidad:** Interfaz orientada al aprendizaje progresivo.
 - **Seguridad:** No se manejan datos clínicos reales ni sensibles.
@@ -178,7 +172,7 @@ El procesamiento de una señal ECG en Yuluka‑ECG sigue las siguientes etapas:
 > ⚠️ **Advertencia:**  
 > Yuluka‑ECG es una plataforma con fines **educativos y de investigación**.  
 > Los resultados generados **no deben utilizarse para diagnóstico ni decisiones clínicas reales**.  
-> El autor y colaboradores no se responsabilizan por el uso indebido del sistema.
+> Los autores y colaboradores no se responsabilizan por el uso indebido del sistema.
 
 ---
 
