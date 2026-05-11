@@ -42,4 +42,4 @@ El preprocesamiento es configurable y tiene fines demostrativos y educativos.
 ### ✅ Usos Permitidos
 - Educación y formación del personal del área de la salud.
 
-``
+
