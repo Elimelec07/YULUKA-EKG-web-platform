@@ -112,5 +112,4 @@ Las evidencias aquí presentadas permiten validar de forma práctica los concept
 
 📌 **Proyecto:** Yuluka‑ECG  
 📌 **Área:** Procesamiento de Bioseñales / Ingeniería Biomédica / Salud Digital  
-📌 **Autor:** Elimelec J. R. Melo
-``
+📌 **Autores:** Elimelec J. R. Melo y Juan C. O. Pulido 
