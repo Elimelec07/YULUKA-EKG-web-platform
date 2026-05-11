@@ -27,6 +27,6 @@ En esta sección se encuentra la base científica y técnica que soporta las dec
 
 ### Enlaces rápidos a los entregables:
 * 📄 **[Resumen del Reporte de Fundamentación](reporte_fundamentacion.md):** Justificación técnica y resumen del estado del arte.
-* 📚 **[Versión Extendida del Estado del Arte](ESTADO%20DEL%20ARTE%20Y%20DE%20LA%20TÉCNICA.docx):** Documento original completo con todas las referencias bibliográficas.
+* 📚 **[Versión Extendida del Estado del Arte](ESTADO%20DEL%20ARTE%20Y%20DE%20LA%20TÉCNICA.pdf):** Documento original completo con todas las referencias bibliográficas.
 * 📊 **[Matriz Comparativa de Alternativas Tecnológicas](matriz_comparativa_alternativas.md):** Análisis comparativo de soluciones existentes y justificación de la selección de Yuluka‑ECG como alternativa óptima.
 * 📐 **[Documento de Diseño Técnico](diseno_tecnico.md):** Descripción de la arquitectura del sistema, componentes, flujo de procesamiento y decisiones técnicas de implementación.
