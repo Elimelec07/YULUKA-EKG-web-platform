@@ -1,0 +1,766 @@
+/* ============================================================
+   QUIZ CLÍNICO — Diplomado en Cuidado Crítico
+   Estética de formulario médico oficial
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: #eef2f7;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #1a202c;
+    font-size: 15px;
+    min-height: 100vh;
+}
+
+/* ---- CABECERA ---- */
+.quiz-header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #1e4d8c 100%);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.quiz-logo {
+    height: 64px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: brightness(0) invert(1);   /* logos blancos sobre fondo oscuro */
+    opacity: 0.92;
+}
+
+.quiz-header-centro {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    min-width: 0;
+}
+
+@media (max-width: 700px) {
+    .quiz-logo { height: 44px; }
+    .quiz-header { padding: 8px 12px; }
+}
+
+.btn-volver {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+.btn-volver:hover { background: rgba(255,255,255,0.12); color: white; }
+
+.quiz-header-titulo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    justify-content: center;
+}
+
+.quiz-icono-hospital {
+    font-size: 1.8rem;
+    opacity: 0.85;
+}
+
+.quiz-titulo-principal {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.quiz-subtitulo {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.55);
+    margin-top: 2px;
+}
+
+.quiz-puntaje-box {
+    text-align: center;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 6px 18px;
+    min-width: 90px;
+}
+
+.puntaje-label {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.55);
+}
+
+.puntaje-valor {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fbbf24;
+    font-family: monospace;
+}
+
+.puntaje-sep { color: rgba(255,255,255,0.4); font-weight: 400; }
+
+/* ---- CONTENEDOR PRINCIPAL ---- */
+.quiz-contenedor {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+}
+
+/* ---- ESTADOS ---- */
+.estado-cargando, .estado-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 300px;
+    color: #718096;
+    font-size: 1rem;
+}
+
+.spinner {
+    width: 44px; height: 44px;
+    border: 4px solid #e2e8f0;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.estado-error { color: #e53e3e; }
+.btn-reintentar {
+    background: #3b82f6; color: white;
+    border: none; border-radius: 8px;
+    padding: 10px 24px; font-size: 0.9rem;
+    font-weight: 700; cursor: pointer;
+    transition: background 0.15s;
+}
+.btn-reintentar:hover { background: #2563eb; }
+
+/* ---- CASO CLÍNICO ---- */
+.caso-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.caso-header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #1e4d8c 100%);
+    color: white;
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.caso-badge-numero {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+}
+
+.caso-titulo {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.caso-paciente {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.7);
+    margin-top: 3px;
+}
+
+.caso-cuerpo {
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.caso-motivo {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #2d3748;
+    background: #f8fafc;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+}
+
+.caso-grid-inferior {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+.signos-titulo {
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #718096;
+    margin-bottom: 8px;
+}
+
+.signos-tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.signo-fila {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.82rem;
+}
+
+.signo-nombre {
+    color: #718096;
+    font-weight: 700;
+    width: 52px;
+    flex-shrink: 0;
+}
+
+.signo-valor {
+    color: #1a202c;
+    font-weight: 800;
+    font-family: monospace;
+}
+
+.signo-valor.alerta { color: #e53e3e; }
+
+.antecedentes-texto {
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: #4a5568;
+}
+
+.pista-ecg {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    color: #92400e;
+    font-style: italic;
+}
+
+.pista-icono { font-style: normal; flex-shrink: 0; }
+
+/* ---- MONITOR ECG ---- */
+.monitor-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.monitor-card-header {
+    background: #2d3748;
+    color: white;
+    padding: 9px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.monitor-card-titulo {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.monitor-card-hint {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+}
+
+.quiz-monitor-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 12px;
+    background: #fff5f5;
+}
+
+.quiz-derivacion {
+    position: relative;
+    background: white;
+    aspect-ratio: 1.5;
+    border: 1px solid rgba(255,99,132,0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.quiz-derivacion.derivacion-clave {
+    border-width: 2px;
+    box-shadow: 0 0 0 3px rgba(var(--clave-rgb), 0.25);
+    animation: pulso-lead 1.5s ease-in-out 3;
+}
+
+@keyframes pulso-lead {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(var(--clave-rgb), 0.2); }
+    50%       { box-shadow: 0 0 0 6px rgba(var(--clave-rgb), 0.45); }
+}
+
+.quiz-derivacion-label {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-weight: 800;
+    font-size: 11px;
+    color: #2d3748;
+    background: rgba(255,255,255,0.88);
+    padding: 1px 5px;
+    border-radius: 3px;
+    z-index: 5;
+    pointer-events: none;
+    border: 1px solid #edf2f7;
+}
+
+.quiz-derivacion-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 8px;
+    font-weight: 800;
+    color: white;
+    padding: 1px 5px;
+    border-radius: 10px;
+    z-index: 5;
+    pointer-events: none;
+    display: none;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.quiz-derivacion.derivacion-clave .quiz-derivacion-badge {
+    display: block;
+}
+
+.quiz-derivacion canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ---- SECCIÓN DE PREGUNTAS ---- */
+.preguntas-titulo {
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #718096;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.pregunta-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    margin-bottom: 16px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    transition: border-color 0.3s;
+}
+
+.pregunta-card.bloqueada {
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+.pregunta-card.respondida-ok    { border-color: #48bb78; }
+.pregunta-card.respondida-mal   { border-color: #fc8181; }
+
+.pregunta-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.pregunta-numero {
+    background: #1e3a5f;
+    color: white;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.pregunta-icono {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.pregunta-enunciado {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a202c;
+    line-height: 1.4;
+}
+
+.pregunta-cuerpo {
+    padding: 16px 20px;
+}
+
+/* Opciones de respuesta */
+.opciones-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 0;
+}
+
+.opcion-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #2d3748;
+    line-height: 1.4;
+    transition: all 0.15s;
+    width: 100%;
+}
+
+.opcion-btn:hover:not(:disabled) {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(59,130,246,0.18);
+}
+
+.opcion-letra {
+    font-weight: 800;
+    font-size: 0.92rem;
+    color: #3b82f6;
+    min-width: 22px;
+    height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: #eff6ff;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.opcion-btn.correcta-mostrada {
+    border-color: #48bb78;
+    background: #f0fff4;
+}
+.opcion-btn.correcta-mostrada .opcion-letra {
+    background: #48bb78; color: white;
+}
+
+.opcion-btn.incorrecta-mostrada {
+    border-color: #fc8181;
+    background: #fff5f5;
+    opacity: 0.75;
+}
+.opcion-btn.incorrecta-mostrada .opcion-letra {
+    background: #fc8181; color: white;
+}
+
+.opcion-btn.elegida-incorrecta {
+    border-color: #e53e3e;
+    background: #fff5f5;
+    opacity: 1;
+}
+
+.opcion-btn:disabled { cursor: default; transform: none; box-shadow: none; }
+
+/* Retroalimentación */
+.retroalimentacion {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 0.84rem;
+    line-height: 1.6;
+    display: none;
+    animation: fadeSlideIn 0.3s ease;
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.retroalimentacion.ok {
+    background: #f0fff4;
+    border: 1px solid #9ae6b4;
+    border-left: 4px solid #38a169;
+    color: #1c4532;
+    display: block;
+}
+
+.retroalimentacion.mal {
+    background: #fff5f5;
+    border: 1px solid #feb2b2;
+    border-left: 4px solid #e53e3e;
+    color: #63171b;
+    display: block;
+}
+
+.retro-icono {
+    font-weight: 800;
+    font-size: 1rem;
+    margin-right: 4px;
+}
+
+/* ---- NAVEGACIÓN FINAL ---- */
+.quiz-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 0 8px;
+}
+
+.resultado-resumen {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2d3748;
+    text-align: center;
+}
+
+.btn-nuevo-caso {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 40px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+}
+
+.btn-perfil-quiz {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background 0.15s;
+    border: 1px solid rgba(255,255,255,0.25);
+}
+.btn-perfil-quiz:hover { background: rgba(255,255,255,0.28); }
+
+.btn-nuevo-caso:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37,99,235,0.45);
+}
+
+/* ============================================================
+   MODAL DE RETROALIMENTACIÓN PEDAGÓGICA
+   ============================================================ */
+.modal-retro-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 20, 40, 0.72);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(3px);
+}
+
+.modal-retro-box {
+    background: white;
+    border-radius: 20px;
+    max-width: 620px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+    animation: retroSlideIn 0.28s cubic-bezier(.22,.68,0,1.18);
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes retroSlideIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* ---- Cabecera semántica ---- */
+.modal-retro-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 24px;
+    border-radius: 20px 20px 0 0;
+    flex-shrink: 0;
+}
+.modal-retro-header.retro-ok  { background: linear-gradient(135deg, #14532d 0%, #16a34a 100%); }
+.modal-retro-header.retro-mal { background: linear-gradient(135deg, #7c2d12 0%, #ea580c 100%); }
+
+.modal-retro-icono   { font-size: 2rem; flex-shrink: 0; }
+.modal-retro-titulo  { font-size: 1.15rem; font-weight: 800; color: white; letter-spacing: 0.01em; }
+.modal-retro-subtitulo { font-size: 0.8rem; color: rgba(255,255,255,0.82); margin-top: 2px; }
+
+/* ---- Cuerpo ---- */
+.modal-retro-cuerpo {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+}
+
+/* Texto clínico principal */
+.modal-retro-texto {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: #1a202c;
+    background: #f8fafc;
+    border-left: 4px solid #94a3b8;
+    border-radius: 0 10px 10px 0;
+    padding: 14px 16px;
+}
+
+/* Guía pedagógica */
+.modal-retro-patron {
+    background: #fefce8;
+    border: 1.5px solid #fde047;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.patron-encabezado {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #713f12;
+    margin-bottom: 2px;
+}
+.patron-fila {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #422006;
+}
+.patron-fisio {
+    background: rgba(250,204,21,0.18);
+    border-radius: 8px;
+    padding: 8px 10px;
+    border-left: 3px solid #eab308;
+}
+
+/* Chips de derivaciones clave */
+.modal-retro-leads {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.retro-leads-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.retro-lead-chip {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    border: 1.5px solid;
+    letter-spacing: 0.04em;
+}
+
+/* ---- Footer ---- */
+.modal-retro-footer {
+    padding: 16px 24px 20px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #e2e8f0;
+    flex-shrink: 0;
+}
+
+.btn-retro-continuar {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 32px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.18s;
+    box-shadow: 0 3px 12px rgba(37,99,235,0.35);
+}
+.btn-retro-continuar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 18px rgba(37,99,235,0.5);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+    .quiz-monitor-grid { grid-template-columns: repeat(3, 1fr); }
+    .opciones-grid    { grid-template-columns: 1fr; }
+    .caso-grid-inferior { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    .quiz-monitor-grid { grid-template-columns: repeat(2, 1fr); }
+    .quiz-header { padding: 10px 14px; }
+    .quiz-contenedor { padding: 14px 12px 30px; }
+}

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Progreso &mdash; Atlas ECG</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+</head>
+<body>
+
+    <!-- CABECERA -->
+    <header class="perfil-header">
+        <img src="/img/Unimagdalena.png" alt="Unimagdalena" class="perfil-logo">
+        <div class="perfil-header-centro">
+            <a href="/" class="btn-volver">&#8592; Monitor Principal</a>
+            <div class="perfil-header-titulo">
+                <div class="perfil-titulo">Mi Progreso Cl&iacute;nico</div>
+                <div class="perfil-subtitulo">Diplomado en Cuidado Cr&iacute;tico &mdash; Universidad del Magdalena</div>
+            </div>
+            <a href="/logout" class="btn-logout-header">Cerrar Sesi&oacute;n</a>
+        </div>
+    </header>
+
+    <div class="perfil-contenedor">
+
+        <!-- Estado: cargando -->
+        <div id="estado-cargando" class="estado-cargando">
+            <div class="spinner"></div>
+            <p>Cargando tu historial cl&iacute;nico&hellip;</p>
+        </div>
+
+        <!-- Contenido -->
+        <div id="perfil-contenido" style="display:none">
+
+            <!-- SALUDO Y RESUMEN GLOBAL -->
+            <div class="saludo-card" id="saludo-card">
+                <div class="saludo-avatar">&#128100;</div>
+                <div class="saludo-info">
+                    <div class="saludo-nombre" id="saludo-nombre"></div>
+                    <div class="saludo-desc">Resumen acumulado de tu desempe&ntilde;o en el quiz cl&iacute;nico</div>
+                </div>
+                <div class="stats-globales">
+                    <div class="stat-global">
+                        <div class="stat-num" id="stat-total">0</div>
+                        <div class="stat-label">Preguntas</div>
+                    </div>
+                    <div class="stat-global">
+                        <div class="stat-num" id="stat-ok">0</div>
+                        <div class="stat-label">Correctas</div>
+                    </div>
+                    <div class="stat-global stat-pct">
+                        <div class="stat-num" id="stat-pct">0%</div>
+                        <div class="stat-label">Acierto global</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GRID PRINCIPAL -->
+            <div class="perfil-grid">
+
+                <!-- Radar Chart -->
+                <div class="perfil-card card-radar">
+                    <div class="card-titulo">&#128202; Perfil de Competencias</div>
+                    <div class="radar-wrap">
+                        <canvas id="radar-chart"></canvas>
+                    </div>
+                    <p class="radar-hint">Un perfil <strong>redondo</strong> indica dominio equilibrado en todas las &aacute;reas del ECG</p>
+                </div>
+
+                <!-- Categorías + barras -->
+                <div class="perfil-card card-categorias">
+                    <div class="card-titulo">&#128200; Desempe&ntilde;o por &Aacute;rea</div>
+                    <div id="barras-categorias"></div>
+                </div>
+
+                <!-- Insights del tutor -->
+                <div class="perfil-card card-insights">
+                    <div class="card-titulo">&#129504; Insight del Tutor IA</div>
+                    <div id="insights-lista"></div>
+                </div>
+
+                <!-- Badges / Logros -->
+                <div class="perfil-card card-badges">
+                    <div class="card-titulo">&#127942; Logros Desbloqueados</div>
+                    <div id="badges-grid"></div>
+                    <div id="badges-empty" class="badges-empty" style="display:none">
+                        <p>Responde preguntas en el quiz para desbloquear logros.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ZONA PELIGROSA -->
+            <div class="zona-reset">
+                <div class="zona-reset-texto">
+                    <strong>Reiniciar mi progreso</strong>
+                    <small>Esta acci&oacute;n elimina permanentemente todo tu historial de respuestas. No se puede deshacer.</small>
+                </div>
+                <button id="btn-reset" class="btn-reset" onclick="confirmarReset()">
+                    &#128465; Reiniciar Historial
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Sin datos -->
+        <div id="estado-vacio" class="estado-vacio" style="display:none">
+            <div class="vacio-icono">&#127973;</div>
+            <h2>Sin historial todav&iacute;a</h2>
+            <p>Completa algunos casos en el Quiz Cl&iacute;nico para ver tu progreso aqu&iacute;.</p>
+            <a href="/quiz" class="btn-ir-quiz">&#9658; Ir al Examen Cl&iacute;nico</a>
+        </div>
+
+    </div>
+
+    <!-- Modal de confirmación de reset -->
+    <div id="modal-reset" class="modal-reset-overlay" style="display:none">
+        <div class="modal-reset-box">
+            <div class="modal-reset-icono">&#9888;&#65039;</div>
+            <h3>¿Reiniciar tu historial?</h3>
+            <p>Se eliminar&aacute;n <strong id="reset-total-count">todas</strong> tus respuestas registradas. Esta acci&oacute;n <strong>no se puede deshacer</strong>.</p>
+            <div class="modal-reset-botones">
+                <button onclick="document.getElementById('modal-reset').style.display='none'" class="btn-cancelar">Cancelar</button>
+                <button onclick="ejecutarReset()" class="btn-confirmar-reset">S&iacute;, reiniciar</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+let _totalPreguntas = 0;
+let _radarChart     = null;
+
+async function cargarProgreso() {
+    try {
+        const r    = await fetch('/api/progreso');
+        const data = await r.json();
+        renderProgreso(data);
+    } catch (e) {
+        document.getElementById('estado-cargando').innerHTML =
+            '<p style="color:#dc2626">Error al cargar el progreso. Recarga la página.</p>';
+    }
+}
+
+function renderProgreso(data) {
+    _totalPreguntas = data.total;
+    document.getElementById('estado-cargando').style.display = 'none';
+
+    if (data.total === 0) {
+        document.getElementById('estado-vacio').style.display = 'flex';
+        return;
+    }
+
+    document.getElementById('perfil-contenido').style.display = 'block';
+
+    // Saludo
+    document.getElementById('saludo-nombre').textContent = `Hola, ${data.nombre} 👋`;
+    document.getElementById('stat-total').textContent = data.total;
+    document.getElementById('stat-ok').textContent    = data.total_ok;
+    document.getElementById('stat-pct').textContent   = data.pct_global + '%';
+    document.getElementById('stat-pct').style.color   =
+        data.pct_global >= 75 ? '#16a34a' : data.pct_global >= 50 ? '#d97706' : '#dc2626';
+
+    // Radar chart
+    const radarCtx = document.getElementById('radar-chart').getContext('2d');
+    if (_radarChart) _radarChart.destroy();
+    _radarChart = new Chart(radarCtx, {
+        type: 'radar',
+        data: {
+            labels: data.categorias,
+            datasets: [{
+                label: 'Tu desempeño (%)',
+                data: data.categorias.map(c => data.stats[c].pct),
+                backgroundColor: 'rgba(37,99,235,0.18)',
+                borderColor: '#2563eb',
+                pointBackgroundColor: data.categorias.map(c =>
+                    data.stats[c].pct >= 75 ? '#16a34a' :
+                    data.stats[c].pct >= 50 ? '#d97706' : '#dc2626'),
+                pointRadius: 6,
+                borderWidth: 2.5,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                r: {
+                    min: 0, max: 100,
+                    ticks: { stepSize: 25, font: { size: 11 }, color: '#64748b' },
+                    pointLabels: { font: { size: 13, weight: 'bold' }, color: '#1e3a5f' },
+                    grid: { color: 'rgba(37,99,235,0.12)' },
+                    angleLines: { color: 'rgba(37,99,235,0.12)' },
+                }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
+
+    // Barras por categoría
+    const barrasEl = document.getElementById('barras-categorias');
+    barrasEl.innerHTML = '';
+    data.categorias.forEach(cat => {
+        const d   = data.stats[cat];
+        const pct = d.pct;
+        const color = pct >= 75 ? '#16a34a' : pct >= 50 ? '#d97706' : '#dc2626';
+        barrasEl.innerHTML += `
+        <div class="cat-fila">
+            <div class="cat-nombre">${cat}</div>
+            <div class="cat-barra-wrap">
+                <div class="cat-barra" style="width:${pct}%;background:${color}"></div>
+            </div>
+            <div class="cat-stats">
+                <span class="pct-label" style="color:${color}">${pct}%</span>
+                <span class="count-label">${d.correctas}/${d.total}</span>
+            </div>
+        </div>`;
+    });
+
+    // Insights
+    const insEl = document.getElementById('insights-lista');
+    insEl.innerHTML = '';
+    data.insights.forEach(txt => {
+        insEl.innerHTML +=
+            `<div class="insight-item"><span class="insight-dot">💡</span><span>${txt}</span></div>`;
+    });
+
+    // Badges
+    const badgesEl  = document.getElementById('badges-grid');
+    const emptyEl   = document.getElementById('badges-empty');
+    badgesEl.innerHTML = '';
+    if (data.badges.length === 0) {
+        emptyEl.style.display = 'block';
+    } else {
+        emptyEl.style.display = 'none';
+        data.badges.forEach(b => {
+            badgesEl.innerHTML += `
+            <div class="badge-item">
+                <div class="badge-icono">${b.icono}</div>
+                <div class="badge-titulo">${b.titulo}</div>
+                <div class="badge-desc">${b.desc}</div>
+            </div>`;
+        });
+    }
+}
+
+function confirmarReset() {
+    document.getElementById('reset-total-count').textContent = `tus ${_totalPreguntas}`;
+    document.getElementById('modal-reset').style.display = 'flex';
+}
+
+async function ejecutarReset() {
+    document.getElementById('modal-reset').style.display = 'none';
+    const r = await fetch('/api/reiniciar_progreso', { method: 'POST' });
+    const d = await r.json();
+    if (d.ok) {
+        document.getElementById('perfil-contenido').style.display = 'none';
+        document.getElementById('estado-vacio').style.display     = 'flex';
+    }
+}
+
+cargarProgreso();
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso &mdash; Atlas ECG Unimagdalena</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <div class="login-fondo">
+        <div class="login-card">
+
+            <div class="login-logo-area">
+                <img src="/img/Unimagdalena.png" alt="Unimagdalena" class="login-logo">
+                <h1 class="login-titulo">Atlas Clínico de ECG</h1>
+                <p class="login-subtitulo">Diplomado en Cuidado Cr&iacute;tico &mdash; Universidad del Magdalena</p>
+            </div>
+
+            <!-- Pestañas -->
+            <div class="login-tabs">
+                <button class="tab-btn tab-activo" id="tab-login" onclick="mostrarTab('login')">
+                    Iniciar Sesi&oacute;n
+                </button>
+                <button class="tab-btn" id="tab-registro" onclick="mostrarTab('registro')">
+                    Registrarse
+                </button>
+            </div>
+
+            <!-- Formulario LOGIN -->
+            <form id="form-login" class="login-form" onsubmit="handleLogin(event)">
+                <div class="campo">
+                    <label>Correo electr&oacute;nico</label>
+                    <input type="email" id="login-correo" placeholder="correo@ejemplo.com" required>
+                </div>
+                <div class="campo">
+                    <label>Contrase&ntilde;a</label>
+                    <input type="password" id="login-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" required>
+                </div>
+                <div id="login-error" class="form-error" style="display:none"></div>
+                <button type="submit" class="btn-submit" id="btn-login">
+                    Entrar al Monitor
+                </button>
+            </form>
+
+            <!-- Formulario REGISTRO -->
+            <form id="form-registro" class="login-form" style="display:none" onsubmit="handleRegistro(event)">
+                <div class="campo">
+                    <label>Nombre completo</label>
+                    <input type="text" id="reg-nombre" placeholder="Tu nombre" required>
+                </div>
+                <div class="campo">
+                    <label>Correo electr&oacute;nico</label>
+                    <input type="email" id="reg-correo" placeholder="correo@ejemplo.com" required>
+                </div>
+                <div class="campo">
+                    <label>Contrase&ntilde;a <small>(m&iacute;nimo 6 caracteres)</small></label>
+                    <input type="password" id="reg-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" required minlength="6">
+                </div>
+                <div id="reg-error" class="form-error" style="display:none"></div>
+                <button type="submit" class="btn-submit" id="btn-registro">
+                    Crear Cuenta
+                </button>
+            </form>
+
+            <a href="/" class="link-volver">&#8592; Volver al Monitor sin cuenta</a>
+
+        </div>
+    </div>
+
+<script>
+function mostrarTab(tab) {
+    document.getElementById('form-login').style.display    = tab === 'login'    ? 'flex' : 'none';
+    document.getElementById('form-registro').style.display = tab === 'registro' ? 'flex' : 'none';
+    document.getElementById('tab-login').classList.toggle('tab-activo',    tab === 'login');
+    document.getElementById('tab-registro').classList.toggle('tab-activo', tab === 'registro');
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    const errEl = document.getElementById('login-error');
+    const btn   = document.getElementById('btn-login');
+    errEl.style.display = 'none';
+    btn.disabled = true; btn.textContent = 'Verificando...';
+    try {
+        const r = await fetch('/api/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                correo:   document.getElementById('login-correo').value,
+                password: document.getElementById('login-password').value,
+            })
+        });
+        const d = await r.json();
+        if (d.ok) {
+            window.location.href = '/perfil';
+        } else {
+            errEl.textContent = d.error;
+            errEl.style.display = 'block';
+        }
+    } catch { errEl.textContent = 'Error de conexión.'; errEl.style.display = 'block'; }
+    btn.disabled = false; btn.textContent = 'Entrar al Monitor';
+}
+
+async function handleRegistro(e) {
+    e.preventDefault();
+    const errEl = document.getElementById('reg-error');
+    const btn   = document.getElementById('btn-registro');
+    errEl.style.display = 'none';
+    btn.disabled = true; btn.textContent = 'Registrando...';
+    try {
+        const r = await fetch('/api/register', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                nombre:   document.getElementById('reg-nombre').value,
+                correo:   document.getElementById('reg-correo').value,
+                password: document.getElementById('reg-password').value,
+            })
+        });
+        const d = await r.json();
+        if (d.ok) {
+            window.location.href = '/perfil';
+        } else {
+            errEl.textContent = d.error;
+            errEl.style.display = 'block';
+        }
+    } catch { errEl.textContent = 'Error de conexión.'; errEl.style.display = 'block'; }
+    btn.disabled = false; btn.textContent = 'Crear Cuenta';
+}
+</script>
+</body>
+</html>

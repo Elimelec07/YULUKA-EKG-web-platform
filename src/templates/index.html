@@ -10,39 +10,252 @@
 <body>
     <div class="contenedor">
         <header>
-            <h1>Monitor Clínico de ECG</h1>
-            <p>Análisis de Bioseñales - 12 Derivaciones Estándar</p>
+            <div class="header-logos">
+                <img src="/img/Unimagdalena.png" alt="Universidad del Magdalena" class="logo-header">
+                <div class="header-texto">
+                    <h1>Monitor Clínico de ECG</h1>
+                    <p>Análisis de Bioseñales &mdash; 12 Derivaciones Estándar</p>
+                    <a href="/quiz" class="btn-quiz-header">&#9874; Examen Cl&iacute;nico</a>
+                </div>
+                <div class="header-user-area">
+                    {% if current_user.is_authenticated %}
+                        <a href="/perfil" class="btn-user-header">&#128100; {{ current_user.nombre.split()[0] }}</a>
+                        <a href="/logout" class="btn-user-logout">Salir</a>
+                    {% else %}
+                        <a href="/login" class="btn-user-header">&#128274; Iniciar Sesi&oacute;n</a>
+                    {% endif %}
+                </div>
+            </div>
         </header>
 
         <div class="panel-control">
             <!-- SECCIÓN 1: SELECCIÓN DE PACIENTE -->
             <div class="tarjeta">
-                <h3>1. Paciente (Base de Datos PTB)</h3>
-<select id="selectPTB">
-                    <optgroup label="Pacientes PTB-XL (Casos Verificados)">
-                        <option value="records500/00000/00001_hr">Paciente 01 - Ritmo Sinusal Normal</option>
-                        <option value="records500/00000/00002_hr">Paciente 02 - Anormalidad de Onda T</option>
-                        <option value="records500/00000/00003_hr">Paciente 03 - Infarto de Miocardio Ant.</option>
-                        <option value="records500/00000/00004_hr">Paciente 04 - Ritmo Sinusal Normal</option>
-                        <option value="records500/00000/00005_hr">Paciente 05 - Hipertrofia Ventricular</option>
-                        <option value="records500/00000/00006_hr">Paciente 06 - Normal</option>
-                        <option value="records500/00000/00007_hr">Paciente 07 - Desnivel del Segmento ST</option>
-                        <option value="records500/00000/00008_hr">Paciente 08 - Bloqueo de Rama Izquierda</option>
-                        <option value="records500/00000/00009_hr">Paciente 09 - Normal</option>
-                        <option value="records500/00000/00010_hr">Paciente 10 - Taquicardia Sinusal</option>
-                        <option value="records500/00000/00011_hr">Paciente 11 - Normal</option>
-                        <option value="records500/00000/00012_hr">Paciente 12 - Arritmia Generalizada</option>
+                <h3>1. Sujeto (PTB-XL · Validado por Cardiólogo)</h3>
+                <select id="selectPTB">
+                    <optgroup label="&#x1F3B2; Selección Aleatoria">
+                        <option value="__random__">Paciente Aleatorio (del pool calificado)</option>
+                    </optgroup>
+                    <optgroup label="Ritmo Normal">
+                        <option value="records500/21000/21344_hr">
+                            #21344 &mdash; Ritmo Sinusal Normal (100%)
+                        </option>
+                    </optgroup>
+                    <optgroup label="Arritmias">
+                        <option value="records500/20000/20393_hr">
+                            #20393 &mdash; Bradicardia Sinusal
+                        </option>
+                        <option value="records500/04000/04408_hr">
+                            #04408 &mdash; Taquicardia Sinusal (80%)
+                        </option>
+                        <option value="records500/14000/14102_hr">
+                            #14102 &mdash; Fibrilación Auricular (100%)
+                        </option>
+                        <option value="records500/00000/00858_hr">
+                            #00858 &mdash; Flutter Auricular con BAV 2:1 (100%)
+                        </option>
+                    </optgroup>
+                    <optgroup label="Trastornos de Conducción">
+                        <option value="records500/18000/18376_hr">
+                            #18376 &mdash; Bloqueo Completo Rama Izquierda (100%)
+                        </option>
+                        <option value="records500/18000/18189_hr">
+                            #18189 &mdash; Bloqueo Completo Rama Derecha (100%)
+                        </option>
+                    </optgroup>
+                    <optgroup label="Cardiopatía Isquémica">
+                        <option value="records500/18000/18291_hr">
+                            #18291 &mdash; Infarto Inferior (IMI · 100%)
+                        </option>
+                        <option value="records500/21000/21040_hr">
+                            #21040 &mdash; Infarto Anteroseptal (ASMI · 100%)
+                        </option>
+                        <option value="records500/19000/19067_hr">
+                            #19067 &mdash; Infarto Anterolateral (ALMI · 100%)
+                        </option>
+                    </optgroup>
+                    <optgroup label="Hipertrofia y Otras Patologías">
+                        <option value="records500/18000/18617_hr">
+                            #18617 &mdash; Hipertrofia Ventricular Izquierda (100%)
+                        </option>
+                        <option value="records500/18000/18186_hr">
+                            #18186 &mdash; QT Prolongado (100%)
+                        </option>
                     </optgroup>
                 </select>
+                <div id="badge-aleatorio" class="badge-aleatorio" style="display:none">
+                    <span class="badge-aleatorio-label">Sujeto cargado:</span>
+                    <span id="badge-aleatorio-id"></span>
+                </div>
                 <button id="btnCargar" class="btn-principal">Cargar Monitor</button>
             </div>
 
-            <!-- SECCIÓN 2: SIMULACIÓN CLÍNICA -->
-            <div class="tarjeta tarjeta-simulacion">
-                <h3>2. Eventos de Urgencias</h3>
-                <button id="btnTemblor" class="btn-ruido">Simular Temblor (EMG)</button>
-                <button id="btnRespiracion" class="btn-ruido">Simular Agitación</button>
-                <button id="btnLimpio" class="btn-limpiar">Estabilizar Monitor</button>
+            <!-- SECCIÓN 2: MÓDULO DSP EDUCATIVO -->
+            <div class="tarjeta tarjeta-dsp">
+                <h3>2. Configuraci&oacute;n del Monitor</h3>
+                <div class="dsp-filtros" id="dsp-filtros">
+
+                    <label class="dsp-opcion" id="dsp-op-cruda">
+                        <input type="radio" name="filtro-ecg" value="cruda">
+                        <div class="dsp-opcion-cuerpo">
+                            <span class="dsp-badge dsp-badge-raw">RAW</span>
+                            <div class="dsp-opcion-texto">
+                                <strong>Se&ntilde;al Cruda</strong>
+                                <small>Muestra la realidad del electrodo sin ning&uacute;n procesamiento</small>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="dsp-opcion" id="dsp-op-notch">
+                        <input type="radio" name="filtro-ecg" value="con_notch">
+                        <div class="dsp-opcion-cuerpo">
+                            <span class="dsp-badge dsp-badge-notch">60Hz</span>
+                            <div class="dsp-opcion-texto">
+                                <strong>Filtro de Red El&eacute;ctrica</strong>
+                                <small>Elimina la interferencia de 60Hz de la red colombiana</small>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="dsp-opcion dsp-opcion-activa" id="dsp-op-total">
+                        <input type="radio" name="filtro-ecg" value="filtrada_total" checked>
+                        <div class="dsp-opcion-cuerpo">
+                            <span class="dsp-badge dsp-badge-dx">DX</span>
+                            <div class="dsp-opcion-texto">
+                                <strong>Modo Diagn&oacute;stico (0.5&ndash;40Hz)</strong>
+                                <small>Estabiliza la l&iacute;nea base y resalta el complejo QRS</small>
+                            </div>
+                        </div>
+                    </label>
+
+                </div>
+                <div id="dsp-explicacion" class="dsp-explicacion"></div>
+            </div>
+        </div>
+
+        <!-- FICHA CLÍNICA DIGITAL -->
+        <div id="ficha-clinica" class="ficha-clinica">
+            <div class="ficha-header">
+                <div class="ficha-titulo">
+                    <span class="ficha-icono">HC</span>
+                    <span>Historia Clínica Digital</span>
+                </div>
+                <div class="ficha-ecg-ref">
+                    <span class="ficha-ref-label">ECG ID</span>
+                    <span id="f-ecg-id" class="ficha-ref-valor">—</span>
+                    <span class="ficha-ref-label" style="margin-left:16px">Paciente</span>
+                    <span id="f-patient-id" class="ficha-ref-valor">—</span>
+                </div>
+            </div>
+            <div id="ficha-cuerpo" class="ficha-cuerpo">
+
+                <!-- Columna 1: Datos demográficos -->
+                <div class="ficha-seccion">
+                    <div class="ficha-sec-titulo">Datos del Paciente</div>
+                    <div class="ficha-campo"><span class="campo-label">Edad</span><span id="f-edad">—</span></div>
+                    <div class="ficha-campo"><span class="campo-label">Sexo</span><span id="f-sexo">—</span></div>
+                    <div class="ficha-campo"><span class="campo-label">Fecha ECG</span><span id="f-fecha">—</span></div>
+                    <div class="ficha-campo" id="f-marcapaso-row" style="display:none">
+                        <span class="campo-label">Dispositivo</span>
+                        <span class="badge-marcapaso">Marcapaso</span>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Antropometría -->
+                <div class="ficha-seccion">
+                    <div class="ficha-sec-titulo">Antropometría</div>
+                    <div class="ficha-campo"><span class="campo-label">Peso</span><span id="f-peso">—</span></div>
+                    <div class="ficha-campo"><span class="campo-label">Talla</span><span id="f-talla">—</span></div>
+                    <div class="ficha-campo"><span class="campo-label">IMC</span><span id="f-imc">—</span></div>
+                    <div class="ficha-campo"><span class="campo-label">Eje Card.</span><span id="f-eje">—</span></div>
+                    <div class="ficha-campo"><span class="campo-label">Estadío</span><span id="f-estadio">—</span></div>
+                </div>
+
+                <!-- Columna 3: Diagnóstico SCP -->
+                <div class="ficha-seccion">
+                    <div class="ficha-sec-titulo">Diagnóstico (Códigos SCP-ECG)</div>
+                    <div id="f-scp" class="scp-lista">—</div>
+                </div>
+
+                <!-- Columna 4: Informe clínico + calidad -->
+                <div class="ficha-seccion ficha-seccion-informe">
+                    <div class="ficha-sec-titulo">Informe Clínico Original</div>
+                    <div id="f-informe" class="informe-texto">—</div>
+                    <div id="f-calidad" class="calidad-alertas"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- MAPA ANATÓMICO: CORRELACIÓN DE TERRITORIOS CORONARIOS -->
+        <div class="panel-anatomia">
+            <div class="panel-anatomia-header">
+                <span class="panel-anatomia-titulo">Mapa Anatómico &middot; Territorios Coronarios</span>
+                <span class="panel-anatomia-hint">Hover sobre derivación &harr; clic en cara cardíaca</span>
+            </div>
+            <div class="panel-anatomia-cuerpo">
+
+                <!-- Diagrama SVG del corazón en corte transversal -->
+                <div class="diagrama-corazon">
+                    <svg viewBox="0 0 340 280" xmlns="http://www.w3.org/2000/svg" class="svg-corazon">
+
+                        <!-- Anterior (verde, arriba) -->
+                        <path class="cara-sector" data-cara="anterior" fill="#16a34a"
+                              d="M 140 110 L 99 69 A 100 100 0 0 1 241 69 L 200 110 A 42 42 0 0 0 140 110 Z"/>
+                        <!-- Septal (azul, derecha) -->
+                        <path class="cara-sector" data-cara="septal" fill="#2563eb"
+                              d="M 200 110 L 241 69 A 100 100 0 0 1 241 211 L 200 170 A 42 42 0 0 0 200 110 Z"/>
+                        <!-- Inferior (rojo, abajo) -->
+                        <path class="cara-sector" data-cara="inferior" fill="#dc2626"
+                              d="M 200 170 L 241 211 A 100 100 0 0 1 99 211 L 140 170 A 42 42 0 0 0 200 170 Z"/>
+                        <!-- Lateral (naranja, izquierda) -->
+                        <path class="cara-sector" data-cara="lateral" fill="#ea580c"
+                              d="M 140 170 L 99 211 A 100 100 0 0 1 99 69 L 140 110 A 42 42 0 0 0 140 170 Z"/>
+
+                        <!-- Cavidad VI (centro) -->
+                        <circle cx="170" cy="140" r="42" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
+                        <text x="170" y="136" text-anchor="middle" font-size="13" font-weight="800" fill="#4a5568">VI</text>
+                        <text x="170" y="149" text-anchor="middle" font-size="8.5" fill="#a0aec0">Vent. Izq.</text>
+
+                        <!-- Etiquetas externas -->
+                        <text x="170" y="47" text-anchor="middle" font-size="10" font-weight="800" fill="#15803d">ANTERIOR</text>
+                        <text x="170" y="58" text-anchor="middle" font-size="9" fill="#166534">V3 &middot; V4</text>
+
+                        <text x="244" y="133" text-anchor="start" font-size="10" font-weight="800" fill="#1d4ed8">SEPTAL</text>
+                        <text x="244" y="145" text-anchor="start" font-size="9" fill="#1e40af">V1 &middot; V2</text>
+
+                        <text x="170" y="224" text-anchor="middle" font-size="10" font-weight="800" fill="#b91c1c">INFERIOR</text>
+                        <text x="170" y="235" text-anchor="middle" font-size="9" fill="#991b1b">II &middot; III &middot; aVF</text>
+
+                        <text x="96" y="133" text-anchor="end" font-size="10" font-weight="800" fill="#c2410c">LATERAL</text>
+                        <text x="96" y="144" text-anchor="end" font-size="9" fill="#9a3412">I &middot; aVL</text>
+                        <text x="96" y="155" text-anchor="end" font-size="9" fill="#9a3412">V5 &middot; V6</text>
+
+                    </svg>
+                    <p class="diagrama-subtitulo">Corte transversal del VI &middot; Vista inferior</p>
+                </div>
+
+                <!-- Tarjeta de información clínica -->
+                <div class="anatomia-tarjeta">
+                    <div class="anatomia-placeholder" id="anatomia-placeholder">
+                        <div class="placeholder-flecha">&#8592; &#8593; &#8594; &#8595;</div>
+                        <p>Pasa el mouse sobre una derivación<br>o haz clic en una cara del diagrama</p>
+                    </div>
+                    <div class="anatomia-info" id="anatomia-info">
+                        <div class="anatomia-cara-header" id="anatomia-cara-header">
+                            <span id="anatomia-cara-nombre" class="cara-nombre"></span>
+                            <span id="anatomia-cara-leads" class="cara-leads"></span>
+                        </div>
+                        <div class="anatomia-arteria-row">
+                            <span class="arteria-label">Arteria</span>
+                            <span id="anatomia-arteria-badge" class="arteria-badge"></span>
+                            <span id="anatomia-arteria-nombre" class="arteria-nombre"></span>
+                        </div>
+                        <div id="anatomia-desc" class="anatomia-desc-texto"></div>
+                        <div id="anatomia-signos" class="anatomia-signos-texto"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -52,18 +265,89 @@
             <div class="contenedor-derivacion"><div class="etiqueta-derivacion">aVR</div><canvas id="grafica_aVR"></canvas></div>
             <div class="contenedor-derivacion"><div class="etiqueta-derivacion">V1</div><canvas id="grafica_V1"></canvas></div>
             <div class="contenedor-derivacion"><div class="etiqueta-derivacion">V4</div><canvas id="grafica_V4"></canvas></div>
-            
+
             <div class="contenedor-derivacion"><div class="etiqueta-derivacion">DII</div><canvas id="grafica_II"></canvas></div>
             <div class="contenedor-derivacion"><div class="etiqueta-derivacion">aVL</div><canvas id="grafica_aVL"></canvas></div>
             <div class="contenedor-derivacion"><div class="etiqueta-derivacion">V2</div><canvas id="grafica_V2"></canvas></div>
             <div class="contenedor-derivacion"><div class="etiqueta-derivacion">V5</div><canvas id="grafica_V5"></canvas></div>
-            
+
             <div class="contenedor-derivacion"><div class="etiqueta-derivacion">DIII</div><canvas id="grafica_III"></canvas></div>
             <div class="contenedor-derivacion"><div class="etiqueta-derivacion">aVF</div><canvas id="grafica_aVF"></canvas></div>
             <div class="contenedor-derivacion"><div class="etiqueta-derivacion">V3</div><canvas id="grafica_V3"></canvas></div>
             <div class="contenedor-derivacion"><div class="etiqueta-derivacion">V6</div><canvas id="grafica_V6"></canvas></div>
         </div>
+        <p class="hint-zoom">Haz clic en cualquier derivación para abrir la cuadrícula de precisión interactiva</p>
     </div>
+
+    <!-- ====================================================
+         MODAL: CUADRÍCULA DE PRECISIÓN INTERACTIVA
+         ==================================================== -->
+    <div id="modal-zoom" class="modal-zoom-overlay">
+        <div class="modal-zoom-contenedor">
+
+            <div class="modal-zoom-header">
+                <div class="modal-zoom-titulo">
+                    <span id="modal-zoom-label">Derivación</span>
+                    <span class="escala-badge">25 mm/s &middot; 10 mm/mV</span>
+                </div>
+                <div class="modal-zoom-controles">
+                    <span id="info-cursor" class="info-cursor">Mueve el cursor sobre la gráfica</span>
+                    <span id="info-medicion" class="info-medicion"></span>
+                    <button id="btn-zoom-menos" class="btn-zoom" title="Alejar (-)">&#8722;</button>
+                    <span id="zoom-nivel" class="zoom-nivel">1&times;</span>
+                    <button id="btn-zoom-mas" class="btn-zoom" title="Acercar (+)">&#43;</button>
+                    <button id="btn-reset-zoom" class="btn-zoom-reset" title="Restablecer vista">&#8635; Reset</button>
+                    <button id="btn-medir" class="btn-medir" title="Herramienta de medición (M)">Medir</button>
+                    <button id="btn-cerrar-modal" class="btn-cerrar" title="Cerrar (Esc)">&#10005;</button>
+                </div>
+            </div>
+
+            <canvas id="canvas-zoom" class="canvas-zoom"></canvas>
+
+            <div class="modal-zoom-footer">
+                <span>Scroll: zoom &nbsp;|&nbsp; Arrastrar: desplazar &nbsp;|&nbsp; Teclas: +/- &nbsp; flechas &nbsp; M=medir &nbsp; Esc=cerrar</span>
+                <span id="modo-medicion-label">MODO MEDICION &mdash; haz clic en 2 puntos de la curva</span>
+            </div>
+
+        </div>
+    </div>
+    <!-- ====================================================
+         MONITOR-BOT — ASISTENTE IA FLOTANTE
+         ==================================================== -->
+    <div id="chat-widget">
+        <!-- Botón de apertura (visible cuando el chat está cerrado) -->
+        <button id="chat-toggle" class="chat-toggle-btn" title="Abrir Monitor-Bot">
+            <span class="chat-toggle-icon">&#129302;</span>
+            <span class="chat-toggle-label">Monitor-Bot</span>
+        </button>
+
+        <!-- Panel del chat -->
+        <div id="chat-panel" class="chat-panel" style="display:none">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="chat-header-titulo">&#129302; Monitor-Bot</div>
+                    <div class="chat-header-sub">Instructor IA &mdash; Cuidado Cr&iacute;tico &middot; Unimagdalena</div>
+                </div>
+                <button id="chat-cerrar" class="chat-cerrar-btn" title="Minimizar">&#8722;</button>
+            </div>
+
+            <div id="chat-mensajes" class="chat-mensajes"></div>
+
+            <div id="chat-typing" class="chat-typing" style="display:none">
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+            </div>
+
+            <div class="chat-input-area">
+                <input id="chat-input" class="chat-input" type="text"
+                       placeholder="Pregunta sobre el ECG del paciente&hellip;"
+                       maxlength="500" autocomplete="off">
+                <button id="chat-enviar" class="chat-enviar-btn" title="Enviar (Enter)">&#9658;</button>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
