@@ -17,4 +17,4 @@ Este repositorio constituye el portafolio técnico del proyecto desarrollado par
 *   `evidence/`: Pruebas de validación, resultados y material para el Pitch.
 
 ## 🛠️ Tecnologías
-Python (NumPy, SciPy, PyWavelets, TensorFlow) | FastAPI | JavaScript (D3.js)
+Python | Flask | JavaScript
