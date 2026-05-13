@@ -6,11 +6,14 @@
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
+html { overflow-x: hidden; }
+
 body {
     background-color: #f0f2f5;
     margin: 0;
     padding: 20px;
     color: #1a202c;
+    overflow-x: hidden;
 }
 
 .contenedor {
@@ -902,11 +905,89 @@ canvas {
 }
 
 /* ============================================================
-   RESPONSIVIDAD (Opcional para tablets)
+   RESPONSIVE — BREAKPOINTS CLÍNICOS
    ============================================================ */
-@media (max-width: 1024px) {
+
+/* Tablets anchos: 3 columnas */
+@media (max-width: 1280px) {
     .monitor-12-derivaciones {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Tablets (≤1024px): 2 columnas según spec */
+@media (max-width: 1024px) {
+    .monitor-12-derivaciones {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+}
+
+/* Tablets medianos y phablets (≤768px): apilar panel de control */
+@media (max-width: 768px) {
+    body { padding: 12px; }
+
+    .panel-control {
+        flex-direction: column;
+    }
+
+    .header-logos {
+        grid-template-columns: auto 1fr;
+    }
+    .header-user-area {
+        grid-column: 1 / -1;
+        justify-self: end;
+    }
+}
+
+/* Móviles (≤480px): 1 columna vertical + header apilado */
+@media (max-width: 480px) {
+    body { padding: 8px; }
+
+    .monitor-12-derivaciones {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 8px;
+    }
+
+    /* Altura fija para que la cuadrícula ECG sea legible en pantalla angosta */
+    .contenedor-derivacion {
+        aspect-ratio: unset;
+        height: 200px;
+    }
+
+    .header-logos {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 10px;
+    }
+    .logo-header      { justify-self: center; }
+    .header-user-area { grid-column: 1; justify-self: center; }
+    .header-texto     { text-align: center; }
+
+    header h1 { font-size: 1.25rem; }
+    header p  { font-size: 0.85rem; }
+    .btn-quiz-header { font-size: 0.8rem; padding: 7px 14px; }
+}
+
+/* ---- Monitor-Bot: bottom sheet en móvil (≤600px) ---- */
+@media (max-width: 600px) {
+    .chat-toggle-btn { padding: 11px 18px; }
+
+    .chat-panel {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        height: 85vh !important;
+        border-radius: 20px 20px 0 0;
+        z-index: 10001;
+        animation: chatBottomSheet 0.28s cubic-bezier(.22,.68,0,1.05);
+    }
+    @keyframes chatBottomSheet {
+        from { transform: translateY(100%); }
+        to   { transform: translateY(0); }
     }
 }
 

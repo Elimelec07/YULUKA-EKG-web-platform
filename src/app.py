@@ -31,8 +31,8 @@ app = Flask(__name__)
 #  CONFIGURACIÓN DE BASE DE DATOS Y AUTENTICACIÓN
 # ================================================================
 
-_DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ecg_atlas.db')
-app.config['SECRET_KEY']                     = os.environ.get('SECRET_KEY', 'ecg-atlas-unimagdalena-2025')
+_DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'yuluka_ekg.db')
+app.config['SECRET_KEY']                     = os.environ.get('SECRET_KEY', 'yuluka-ekg-unimagdalena-2025')
 app.config['SQLALCHEMY_DATABASE_URI']        = f'sqlite:///{_DB_PATH}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

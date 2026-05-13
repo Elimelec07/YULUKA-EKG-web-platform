@@ -1,4 +1,4 @@
-# ECG Atlas — Monitor Clínico & Módulo de Evaluación
+# Yuluka-EKG — Monitor Clínico & Módulo de Evaluación
 ### Diplomado en Cuidado Crítico · Universidad del Magdalena
 
 Plataforma web educativa para el estudio de electrocardiografía clínica. Integra señales reales de la base de datos PTB-XL (PhysioNet), procesamiento digital de señales, un asistente IA y un sistema de evaluación con historial de progreso.
@@ -31,7 +31,7 @@ Plataforma web educativa para el estudio de electrocardiografía clínica. Integ
 ```
 ProjectMain/
 ├── app.py                    ← Servidor Flask (toda la lógica backend)
-├── ecg_atlas.db              ← Base de datos SQLite (auto-creada)
+├── yuluka_ekg.db             ← Base de datos SQLite (auto-creada)
 ├── ptbxl_database.csv        ← Metadatos PTB-XL (auto-descargada)
 ├── templates/
 │   ├── index.html            ← Monitor clínico principal
@@ -76,7 +76,7 @@ python app.py
 
 El servidor arranca en `http://127.0.0.1:5000`.
 
-Al primer arranque, `ptbxl_database.csv` se descarga automáticamente desde PhysioNet (~16 MB). La base de datos `ecg_atlas.db` se crea automáticamente.
+Al primer arranque, `ptbxl_database.csv` se descarga automáticamente desde PhysioNet (~16 MB). La base de datos `yuluka_ekg.db` se crea automáticamente.
 
 ---
 
@@ -673,7 +673,7 @@ Claves: `caso_imi_dx`, `caso_imi_conducta`, `caso_asmi_dx`, `caso_asmi_conducta`
 ```python
 # Ejecutar desde la raíz del proyecto con Python
 import sqlite3
-conn = sqlite3.connect('ecg_atlas.db')
+conn = sqlite3.connect('yuluka_ekg.db')
 cur  = conn.cursor()
 
 # Ver todos los usuarios registrados
@@ -728,4 +728,4 @@ conn.commit()
 
 ---
 
-*Documento generado para el proyecto ECG Atlas — Diplomado en Cuidado Crítico, Universidad del Magdalena.*
+*Documento generado para el proyecto Yuluka-EKG — Diplomado en Cuidado Crítico, Universidad del Magdalena.*

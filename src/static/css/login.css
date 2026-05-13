@@ -1,4 +1,5 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow-x: hidden; }
 body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
 
 .login-fondo {
@@ -108,3 +109,12 @@ body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
     transition: color 0.15s;
 }
 .link-volver:hover { color: #2563eb; }
+
+/* Móviles (≤480px) */
+@media (max-width: 480px) {
+    .login-fondo { padding: 16px; align-items: flex-start; padding-top: 32px; }
+    .login-card  { padding: 28px 20px 22px; border-radius: 16px; }
+    .login-logo  { height: 50px; }
+    .login-titulo { font-size: 1.15rem; }
+    .campo input  { font-size: 1rem; padding: 11px 14px; } /* evita zoom-in en iOS */
+}

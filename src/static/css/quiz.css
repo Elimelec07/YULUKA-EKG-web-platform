@@ -753,14 +753,67 @@ body {
 }
 
 /* ---- RESPONSIVE ---- */
-@media (max-width: 900px) {
-    .quiz-monitor-grid { grid-template-columns: repeat(3, 1fr); }
-    .opciones-grid    { grid-template-columns: 1fr; }
-    .caso-grid-inferior { grid-template-columns: 1fr; }
+
+/* Tablets (≤1024px): 2 columnas del monitor */
+@media (max-width: 1024px) {
+    .quiz-monitor-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* Tablets medianos (≤900px): opciones en columna única */
+@media (max-width: 900px) {
+    .quiz-monitor-grid  { grid-template-columns: repeat(2, 1fr); }
+    .opciones-grid      { grid-template-columns: 1fr; }
+    .caso-grid-inferior { grid-template-columns: 1fr; }
+
+    /* Área táctil mínima para botones de respuesta */
+    .opcion-btn { min-height: 48px; }
+}
+
+/* Tablets pequeños (≤600px) */
 @media (max-width: 600px) {
-    .quiz-monitor-grid { grid-template-columns: repeat(2, 1fr); }
-    .quiz-header { padding: 10px 14px; }
-    .quiz-contenedor { padding: 14px 12px 30px; }
+    .quiz-header      { padding: 8px 12px; }
+    .quiz-contenedor  { padding: 14px 12px 30px; }
+    .quiz-subtitulo   { display: none; }
+    .quiz-puntaje-box { padding: 5px 12px; }
+}
+
+/* Móviles (≤480px): 1 columna vertical + altura fija */
+@media (max-width: 480px) {
+    body          { overflow-x: hidden; }
+
+    .quiz-monitor-grid {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 8px;
+    }
+
+    /* Altura fija legible sin papel demasiado pequeño */
+    .quiz-derivacion {
+        aspect-ratio: unset;
+        height: 200px;
+    }
+
+    /* Botones de respuesta grandes para pulgar */
+    .opcion-btn {
+        min-height: 52px;
+        padding: 12px 14px;
+        font-size: 0.88rem;
+    }
+
+    /* Reducir título del monitor en header del quiz */
+    .quiz-titulo-principal { font-size: 0.92rem; letter-spacing: 0.02em; }
+    .quiz-logo             { height: 38px; }
+
+    /* Compactar historia clínica */
+    .caso-cuerpo      { padding: 14px 14px; gap: 10px; }
+    .pregunta-cuerpo  { padding: 14px 14px; }
+    .pregunta-header  { padding: 12px 14px; }
+
+    /* Modal de retroalimentación: ocupar casi toda la pantalla */
+    .modal-retro-overlay { padding: 0; align-items: flex-end; }
+    .modal-retro-box     { border-radius: 20px 20px 0 0; max-height: 92vh; }
+    .modal-retro-header  { padding: 16px 18px; }
+    .modal-retro-cuerpo  { padding: 16px 18px; }
+    .modal-retro-footer  { padding: 12px 18px 20px; }
+    .btn-retro-continuar { width: 100%; text-align: center; }
 }
