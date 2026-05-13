@@ -3,14 +3,14 @@
 
 ---
 
-## 1. Introducción
+## ❤️ 1. Introducción
 
 Con el objetivo de seleccionar la alternativa tecnológica más adecuada para el desarrollo de la plataforma **Yuluka‑ECG**, se realizó un análisis comparativo entre diferentes enfoques y sistemas reportados en la literatura y en proyectos similares. Esta matriz permite evaluar de forma estructurada las ventajas y limitaciones de cada alternativa, considerando criterios técnicos, arquitectónicos y educativos.
 
 
 ---
 
-## 2. Alternativas Evaluadas
+## 📚 2. Alternativas Evaluadas
 
 Las alternativas consideradas en el presente análisis son las siguientes:
 
@@ -20,7 +20,7 @@ Las alternativas consideradas en el presente análisis son las siguientes:
 
 ---
 
-## 3. Criterios de Evaluación
+## 🧠 3. Criterios de Evaluación
 
 La evaluación comparativa se realizó con base en los siguientes criterios:
 
@@ -33,7 +33,7 @@ La evaluación comparativa se realizó con base en los siguientes criterios:
   
 ---
 
-## 4. Matriz Comparativa
+## 🎨 4. Matriz Comparativa
 
 ### Matriz Comparativa de Soluciones de Aprendizaje en ECG
 
@@ -48,7 +48,7 @@ La evaluación comparativa se realizó con base en los siguientes criterios:
 
 ---
 
-## 5. Análisis Comparativo
+## ☁️ 5. Análisis Comparativo
 
 El análisis evidencia que los métodos tradicionales de enseñanza (A1), como libros y guías estáticas, presentan una fuerte limitación formativa al mostrar trazos electrocardiográficos idealizados y limpios que omiten por completo la variabilidad biológica y los artefactos técnicos del entorno hospitalario. Por otro lado, los simuladores comerciales de cuidado crítico (A2) ofrecen entornos prácticos rígidos, pero operan como una "caja negra" donde los filtros digitales vienen preconfigurados, impidiendo que el estudiante comprenda el impacto del procesamiento de señales; además, exigen hardware costoso y laboratorios físicos especializados, lo que limita severamente su accesibilidad.
 
@@ -58,7 +58,7 @@ La alternativa Yuluka‑ECG (A4) resuelve de manera óptima estas deficiencias. 
 
 ---
 
-## 6. Justificación de la Alternativa Seleccionada
+## ⚙️ 6. Justificación de la Alternativa Seleccionada
 
 A partir de la matriz comparativa presentada, se selecciona Yuluka‑ECG como la solución óptima y definitiva para el desarrollo del proyecto, debido a los siguientes criterios de ingeniería y diseño pedagógico:
 * Fidelidad y Realismo Biológico: A diferencia de las señales sintéticas de los simuladores comerciales, implementa registros clínicos reales indexados de la base de datos global PTB-XL de PhysioNet.
@@ -75,6 +75,6 @@ A partir de la matriz comparativa presentada, se selecciona Yuluka‑ECG como la
 
 ---
 
-## 7. Conclusión
+## 🚀 7. Conclusión
 
 La matriz comparativa de alternativas demuestra que Yuluka‑ECG representa la solución más equilibrada e innovadora frente a las opciones evaluadas en el mercado educativo y comercial. Al fusionar de manera armónica el Procesamiento Digital de Señales (DSP), la Inteligencia Artificial generativa y la persistencia de datos relacionales, el proyecto no solo cumple rigurosamente con las demandas técnicas de la ingeniería biomédica, sino que se consolida como una herramienta de alto impacto académico capaz de cerrar la brecha formativa y preparar eficientemente a los futuros profesionales de la salud para la realidad de las Unidades de Cuidado Crítico.
