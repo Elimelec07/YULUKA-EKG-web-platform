@@ -1,7 +1,7 @@
 # 📊 Resultados y Sustentación
-## Evidencias del Proyecto Yuluka‑ECG
+## Evidencias del Proyecto Yuluka‑EKG
 
-Este directorio consolida las **evidencias técnicas y resultados finales** del proyecto **Yuluka‑ECG**, como soporte a la fundamentación teórica y al documento de diseño técnico.  
+Este directorio consolida las **evidencias técnicas y resultados finales** del proyecto **Yuluka‑EKG**, como soporte a la fundamentación teórica y al documento de diseño técnico.  
 La información aquí presentada permite validar el correcto funcionamiento del pipeline de procesamiento y las decisiones adoptadas durante el desarrollo.
 
 ---
@@ -35,7 +35,7 @@ Material de presentación ejecutiva que resume:
 
 ### 2.2 Demostración Funcional
 
-Evidencia del funcionamiento real de la plataforma Yuluka‑ECG mediante:
+Evidencia del funcionamiento real de la plataforma Yuluka‑EKG mediante:
 
 - Video demostrativo del pipeline completo.
 - Capturas del frontend web.
