@@ -1,11 +1,11 @@
 # 📐 Documento de Diseño Técnico
-## Plataforma Yuluka‑ECG
+## Plataforma Yuluka‑EKG
 
 ---
 
 ## 1. Introducción
 
-Yuluka-ECG es una plataforma web interactiva diseñada para la formación clínica en cuidado crítico. El sistema permite la visualización simultánea de electrocardiogramas (ECG) de 12 derivaciones, la manipulación de filtros digitales para la remoción de artefactos técnicos, y la evaluación interactiva mediante quices dinámicos respaldados por un tutor cognitivo basado en Inteligencia Artificial.
+Yuluka-EKG es una plataforma web interactiva diseñada para la formación clínica en cuidado crítico. El sistema permite la visualización simultánea de electrocardiogramas (EKG) de 12 derivaciones, la manipulación de filtros digitales para la remoción de artefactos técnicos, y la evaluación interactiva mediante quices dinámicos respaldados por un tutor cognitivo basado en Inteligencia Artificial.
 
 ### Objetivos Técnicos
 - **Procesamiento en Backend: Filtrar bioseñales reales de la base de datos PTB-XL reduciendo el ruido de la red eléctrica colombiana (60 Hz) y variaciones de línea base sin introducir distorsiones de fase.**
@@ -66,7 +66,7 @@ Este componente desacopla la evaluación clínica del monitor principal para evi
 Integración mediante el SDK oficial de Google (google-generativeai) utilizando el modelo Gemini 1.5 Flash.
 - **Estrategia de Prompt Engineering (Inyección de Contexto Dinámico): Cada mensaje enviado por el usuario es interceptado en el backend y envuelto dentro de una instrucción de sistema invariable:**
 Plaintext
-[SYSTEM INSTRUCTION]: Eres un tutor clínico especializado de soporte para Yuluka-ECG. 
+[SYSTEM INSTRUCTION]: Eres un tutor clínico especializado de soporte para Yuluka-EKG. 
 El estudiante está analizando actualmente el registro de PTB-XL con ID: {id_actual}.
 El diagnóstico clínico real es: {diagnostico_paciente}.
 REGLA STRICTA: No entregues el diagnóstico de forma directa. Si el estudiante tiene dudas, 
@@ -114,7 +114,7 @@ Para ejecutar pruebas remotas con usuarios reales (compañeros de la facultad y 
 ## 9. Advertencia de Uso
 
 > ⚠️ **Advertencia:**  
-> Yuluka‑ECG es una plataforma con fines **educativos y de investigación**.  
+> Yuluka‑EKG es una plataforma con fines **educativos y de investigación**.  
 > Los resultados generados **no deben utilizarse para diagnóstico ni decisiones clínicas reales**.  
 > Los autores y colaboradores no se responsabilizan por el uso indebido del sistema.
 
@@ -122,7 +122,7 @@ Para ejecutar pruebas remotas con usuarios reales (compañeros de la facultad y 
 
 ## 10. Conclusión del Diseño Técnico
 
-El diseño técnico de Yuluka‑ECG define una plataforma modular, accesible y técnicamente sólida que integra procesamiento de señales ECG y visualización interactiva bajo una arquitectura web moderna. Su enfoque educativo la posiciona como una herramienta eficaz para el aprendizaje del análisis de bioseñales en el área de la salud y la ingeniería biomédica.
+El diseño técnico de Yuluka‑EKG define una plataforma modular, accesible y técnicamente sólida que integra procesamiento de señales EKG y visualización interactiva bajo una arquitectura web moderna. Su enfoque educativo la posiciona como una herramienta eficaz para el aprendizaje del análisis de bioseñales en el área de la salud y la ingeniería biomédica.
 
 ---
 
