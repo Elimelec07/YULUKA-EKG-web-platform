@@ -1,5 +1,4 @@
 # Yuluka-ECG: Plataforma Web para el Análisis Armónico de Señales
-Portafolio técnico de Ingeniería: Plataforma web interactiva para la formación en cuidado crítico, procesamiento digital de señales ECG de 12 derivaciones y asistencia cognitiva con Inteligencia Artificial.
 
 ## 🚀 Descripción del Proyecto
 Este repositorio constituye el portafolio técnico del proyecto Yuluka-ECG. La solución aborda la brecha entre la ingeniería biomédica y la práctica formativa del personal de la salud (enfermería y medicina) mediante un ecosistema web integral que procesa señales reales provenientes de la base de datos clínica estandarizada **PTB-XL (PhysioNet)**, transformándolas en herramientas pedagógicas interactivas.
