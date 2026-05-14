@@ -1,4 +1,4 @@
-# Yuluka-ECG: Plataforma Web para el Análisis Armónico de Señales
+# Yuluka-EKG: Plataforma Web para el Análisis Armónico de Señales
 Hola. Bienvenidos al portafolio Yuluka-EKG este nace de la necesidad de evolucionar la forma en que presentamos la ingeniería. En lugar de informes tradicionales, aquí encontrarás un ecosistema digital que documenta el desarrollo de nuestro proyecto.
 
 ## 🚀 Descripción del Proyecto
