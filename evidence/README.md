@@ -11,51 +11,14 @@ La información aquí presentada permite validar el correcto funcionamiento del 
 El objetivo de esta sección es:
 
 - Documentar los **resultados obtenidos** durante el desarrollo del proyecto.
-- Evidenciar el desempeño de las técnicas de filtrado y análisis aplicadas.
 - Proveer material de **soporte académico y técnico** para evaluaciones, presentaciones y demostraciones.
-- Facilitar la trazabilidad entre teoría, diseño e implementación.
-
+- Facilitar la trazabilidad entre teoría, diseño y educacion.
 ---
 
-## 2. Pipeline de Procesamiento (Yuluka Flow)
-
-Siguiendo la arquitectura definida en el documento de diseño técnico, la señal ECG atraviesa las siguientes etapas:
-
-1. **Ingesta**  
-   Carga de señales ECG crudas en formatos **CSV** o **JSON**.
-
-2. **Filtrado**  
-   Aplicación de filtros **Notch** y técnicas basadas en **Transformada Wavelet**, con el objetivo de alcanzar el estado de *Yuluka* (señal depurada).
-
-3. **Detección**  
-   Identificación de complejos **QRS** mediante el algoritmo de **Pan‑Tompkins**.
-
-4. **Análisis**  
-   Extracción de características de **variabilidad de la frecuencia cardíaca (HRV)** y procesos de clasificación mediante técnicas de *Deep Learning* (cuando aplica).
-
+## 2. Evidencias Disponibles
 ---
 
-## 3. Evidencias Disponibles
-
-### 3.1 Resultados Cuantitativos
-
-Incluyen métricas de desempeño obtenidas tras la aplicación de las distintas técnicas de procesamiento:
-
-- Gráficas comparativas de señal ECG (cruda vs filtrada).
-- Métricas de calidad:
-  - **SNR (Signal‑to‑Noise Ratio)**
-  - **MSE (Mean Squared Error)**
-  - **PRD (Percent Root Difference)**
-- Comparación entre métodos de filtrado.
-
-📂 *Archivos asociados:*  
-- Gráficas
-- Capturas de resultados
-- Exportaciones numéricas
-
----
-
-### 3.2 Pitch del Proyecto
+### 2.1 Pitch del Proyecto
 
 Material de presentación ejecutiva que resume:
 
@@ -70,7 +33,7 @@ Material de presentación ejecutiva que resume:
 
 ---
 
-### 3.3 Demostración Funcional
+### 2.2 Demostración Funcional
 
 Evidencia del funcionamiento real de la plataforma Yuluka‑ECG mediante:
 
@@ -85,7 +48,7 @@ Evidencia del funcionamiento real de la plataforma Yuluka‑ECG mediante:
 
 ---
 
-## 4. Relación con la Documentación del Proyecto
+## 3. Relación con la Documentación del Proyecto
 
 Esta sección se complementa directamente con los siguientes documentos:
 
@@ -102,7 +65,7 @@ Las evidencias aquí presentadas permiten validar de forma práctica los concept
 
 ---
 
-## 5. Consideraciones Finales
+## 4. Consideraciones Finales
 
 - Las evidencias tienen un **propósito educativo y académico**.
 - Los resultados **no deben interpretarse como diagnóstico clínico**.
