@@ -1,11 +1,11 @@
 # 📊 Matriz Comparativa de Alternativas Tecnológicas
-## Proyecto Yuluka‑ECG
+## Proyecto Yuluka‑EKG
 
 ---
 
 ## ❤️ 1. Introducción
 
-Con el objetivo de seleccionar la alternativa tecnológica más adecuada para el desarrollo de la plataforma **Yuluka‑ECG**, se realizó un análisis comparativo entre diferentes enfoques y sistemas reportados en la literatura y en proyectos similares. Esta matriz permite evaluar de forma estructurada las ventajas y limitaciones de cada alternativa, considerando criterios técnicos, arquitectónicos y educativos.
+Con el objetivo de seleccionar la alternativa tecnológica más adecuada para el desarrollo de la plataforma **Yuluka‑EKG**, se realizó un análisis comparativo entre diferentes enfoques y sistemas reportados en la literatura y en proyectos similares. Esta matriz permite evaluar de forma estructurada las ventajas y limitaciones de cada alternativa, considerando criterios técnicos, arquitectónicos y educativos.
 
 
 ---
@@ -16,7 +16,7 @@ Las alternativas consideradas en el presente análisis son las siguientes:
 
 - **A1:** Métodos Tradicionales (Libros y Guías Estáticas)  
 - **A2:** Simuladores Comerciales de Cuidado Crítico    
-- **A3:** **Yuluka‑ECG (Alternativa Propuesta)**  
+- **A3:** **Yuluka‑EKG (Alternativa Propuesta)**  
 
 ---
 
@@ -35,9 +35,9 @@ La evaluación comparativa se realizó con base en los siguientes criterios:
 
 ## 🎨 4. Matriz Comparativa
 
-### Matriz Comparativa de Soluciones de Aprendizaje en ECG
+### Matriz Comparativa de Soluciones de Aprendizaje en EKG
 
-| Criterio de Evaluación | Métodos Tradicionales (Libros y Guías Estáticas) | Simuladores Comerciales de Cuidado Crítico | **Yuluka‑ECG (Este Proyecto)** |
+| Criterio de Evaluación | Métodos Tradicionales (Libros y Guías Estáticas) | Simuladores Comerciales de Cuidado Crítico | **Yuluka‑EKG (Este Proyecto)** |
 | :--- | :--- | :--- | :--- |
 | **Realismo de las Señales** | **Bajo:** Gráficos impresos idealizados y limpios que omiten la variabilidad biológica real. | **Medio:** Señales sintéticas o parametrizadas digitalmente que suelen verse demasiado perfectas. | **Alto:** Datos clínicos reales de pacientes procedentes de la base de datos estandarizada **PTB-XL (PhysioNet)**. |
 | **Gestión de Ruido y Artefactos** | **Nulo:** No permite experimentar con interferencias ni ruidos de la vida real. | **Bajo (Caja Negra):** Los filtros vienen preconfigurados de fábrica sin que el estudiante entienda su efecto técnico. | **Avanzado e Interactivo (DSP):** Permite manipular filtros en tiempo real (Notch 60 Hz, Butterworth, Savitzky-Golay) para aprender a limpiar la señal. |
@@ -52,13 +52,13 @@ La evaluación comparativa se realizó con base en los siguientes criterios:
 
 El análisis evidencia que los métodos tradicionales de enseñanza (A1), como libros y guías estáticas, presentan una fuerte limitación formativa al mostrar trazos electrocardiográficos idealizados y limpios que omiten por completo la variabilidad biológica y los artefactos técnicos del entorno hospitalario. Por otro lado, los simuladores comerciales de cuidado crítico (A2) ofrecen entornos prácticos rígidos, pero operan como una "caja negra" donde los filtros digitales vienen preconfigurados, impidiendo que el estudiante comprenda el impacto del procesamiento de señales; además, exigen hardware costoso y laboratorios físicos especializados, lo que limita severamente su accesibilidad.
 
-La alternativa Yuluka‑ECG (A3) resuelve de manera óptima estas deficiencias. Combina el realismo clínico de señales biológicas verdaderas provenientes de la base de datos PTB-XL (PhysioNet). la plataforma no solo expone al estudiante a patologías reales, sino que le permite interactuar con la naturaleza estocástica de la señal. Esta propuesta trasciende la visualización pasiva, incorporando analíticas de aprendizaje y un tutor cognitivo basado en IA que transforma el error en una oportunidad de refuerzo conceptual.
+La alternativa Yuluka‑EKG (A3) resuelve de manera óptima estas deficiencias. Combina el realismo clínico de señales biológicas verdaderas provenientes de la base de datos PTB-XL (PhysioNet). la plataforma no solo expone al estudiante a patologías reales, sino que le permite interactuar con la naturaleza estocástica de la señal. Esta propuesta trasciende la visualización pasiva, incorporando analíticas de aprendizaje y un tutor cognitivo basado en IA que transforma el error en una oportunidad de refuerzo conceptual.
 
 ---
 
 ## ⚙️ 6. Justificación de la Alternativa Seleccionada
 
-A partir de la matriz comparativa presentada, se selecciona Yuluka‑ECG como la solución óptima y definitiva para el desarrollo del proyecto, debido a los siguientes criterios de ingeniería y diseño pedagógico:
+A partir de la matriz comparativa presentada, se selecciona Yuluka‑EKG como la solución óptima y definitiva para el desarrollo del proyecto, debido a los siguientes criterios de ingeniería y diseño pedagógico:
 * Fidelidad y Realismo Biológico: A diferencia de las señales sintéticas de los simuladores comerciales, implementa registros clínicos reales indexados de la base de datos global PTB-XL de PhysioNet.
 
 * Apertura de la "Caja Negra" del DSP: Permite la manipulación interactiva de filtros digitales en tiempo real (Notch a 60 Hz y Pasa-Banda Butterworth de 0.5-40 Hz), enseñando al personal de salud a discernir de forma autónoma entre un artefacto técnico y una patología cardíaca real.
