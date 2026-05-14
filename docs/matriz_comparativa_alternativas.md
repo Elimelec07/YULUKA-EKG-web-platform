@@ -52,9 +52,7 @@ La evaluación comparativa se realizó con base en los siguientes criterios:
 
 El análisis evidencia que los métodos tradicionales de enseñanza (A1), como libros y guías estáticas, presentan una fuerte limitación formativa al mostrar trazos electrocardiográficos idealizados y limpios que omiten por completo la variabilidad biológica y los artefactos técnicos del entorno hospitalario. Por otro lado, los simuladores comerciales de cuidado crítico (A2) ofrecen entornos prácticos rígidos, pero operan como una "caja negra" donde los filtros digitales vienen preconfigurados, impidiendo que el estudiante comprenda el impacto del procesamiento de señales; además, exigen hardware costoso y laboratorios físicos especializados, lo que limita severamente su accesibilidad.
 
-En cuanto a los sistemas avanzados de investigación basados en la nube y Deep Learning (A3), aunque destacan por su alto rendimiento computacional en la clasificación automática de patologías, carecen de interfaces didácticas y de andamiaje pedagógico, enfocándose en la automatización investigativa en lugar del entrenamiento y la formación del personal de salud.
-
-La alternativa Yuluka‑ECG (A4) resuelve de manera óptima estas deficiencias. Combina el realismo clínico de señales biológicas verdaderas provenientes de la base de datos PTB-XL (PhysioNet) con un módulo de Procesamiento Digital de Señales (DSP) interactivo y abierto (SciPy), permitiendo al estudiante aprender a gestionar el ruido de la red eléctrica (Notch 60 Hz) y de la respiración de forma lúdica. Asimismo, integra analíticas de aprendizaje y un tutor cognitivo automatizado, democratizando el acceso a simuladores de alta fidelidad desde cualquier navegador web a costo cero.
+La alternativa Yuluka‑ECG (A3) resuelve de manera óptima estas deficiencias. Combina el realismo clínico de señales biológicas verdaderas provenientes de la base de datos PTB-XL (PhysioNet). la plataforma no solo expone al estudiante a patologías reales, sino que le permite interactuar con la naturaleza estocástica de la señal. Esta propuesta trasciende la visualización pasiva, incorporando analíticas de aprendizaje y un tutor cognitivo basado en IA que transforma el error en una oportunidad de refuerzo conceptual.
 
 ---
 
@@ -65,7 +63,7 @@ A partir de la matriz comparativa presentada, se selecciona Yuluka‑ECG como la
 
 * Apertura de la "Caja Negra" del DSP: Permite la manipulación interactiva de filtros digitales en tiempo real (Notch a 60 Hz y Pasa-Banda Butterworth de 0.5-40 Hz), enseñando al personal de salud a discernir de forma autónoma entre un artefacto técnico y una patología cardíaca real.
 
-* Tutoría Cognitiva Inteligente y 24/7: Integra la API de Google Gemini 1.5 Flash bajo un esquema de inyección de contexto dinámico. El asistente actúa como un tutor clínico de cabecera que guía visualmente al alumno mediante pistas morfofisiológicas sin entregar la respuesta diagnóstica de manera directa.
+* Tutoría Cognitiva Inteligente y 24/7: Integra la API de Google Gemini 2.5 Flash bajo un esquema de inyección de contexto dinámico. El asistente actúa como un tutor clínico de cabecera que guía visualmente al alumno mediante pistas morfofisiológicas sin entregar la respuesta diagnóstica de manera directa.
 
 * Evaluación Orientada a Conductas Clínicas: El módulo de quices simulados desafía al estudiante a tomar decisiones bajo presión basadas en protocolos reales de enfermería en cuidado crítico (ej. administración de oxígeno, activación de código azul), complementado con un motor de retroalimentación fisiopatológica inmediata fundamentada en medidas métricas exactas (intervalos PR, segmentos ST).
 
@@ -77,4 +75,4 @@ A partir de la matriz comparativa presentada, se selecciona Yuluka‑ECG como la
 
 ## 🚀 7. Conclusión
 
-La matriz comparativa de alternativas demuestra que Yuluka‑ECG representa la solución más equilibrada e innovadora frente a las opciones evaluadas en el mercado educativo y comercial. Al fusionar de manera armónica el Procesamiento Digital de Señales (DSP), la Inteligencia Artificial generativa y la persistencia de datos relacionales, el proyecto no solo cumple rigurosamente con las demandas técnicas de la ingeniería biomédica, sino que se consolida como una herramienta de alto impacto académico capaz de cerrar la brecha formativa y preparar eficientemente a los futuros profesionales de la salud para la realidad de las Unidades de Cuidado Crítico.
+La matriz comparativa de alternativas demuestra que Yuluka‑EKG representa la solución más equilibrada e innovadora frente a las opciones evaluadas en el mercado educativo y comercial. Al fusionar de manera armónica el preprocesamiento de datos reales, la Inteligencia Artificial y las ayudadas pedagogicas, el proyecto se consolida como una herramienta capaz de cerrar la brecha formativa y preparar eficientemente a los futuros profesionales de la salud.
