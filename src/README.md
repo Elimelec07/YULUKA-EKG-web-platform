@@ -1,7 +1,6 @@
-# Yuluka-EKG — Monitor Clínico & Módulo de Evaluación
-### Diplomado en Cuidado Crítico · Universidad del Magdalena
+# Yuluka-EKG — Monitor Clínico 
 
-Plataforma web educativa para el estudio de electrocardiografía clínica. Integra señales reales de la base de datos PTB-XL (PhysioNet), procesamiento digital de señales, un asistente IA y un sistema de evaluación con historial de progreso.
+Plataforma web educativa para el estudio de electrocardiografía. Integra señales reales de la base de datos PTB-XL (PhysioNet), procesamiento digital de señales, un asistente IA y un sistema de evaluación con historial de progreso.
 
 ---
 
