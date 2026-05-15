@@ -2,7 +2,7 @@
 Hola. Bienvenidos al portafolio Yuluka-EKG este nace de la necesidad de evolucionar la forma en que presentamos la ingeniería. En lugar de informes tradicionales, aquí encontrarás un ecosistema digital que documenta el desarrollo de nuestro proyecto.
 
 ## 🚀 Descripción del Proyecto
-Este repositorio constituye el portafolio técnico del proyecto Yuluka-EKG. Este proyecto aborda el uso de una herramienta de apoyo para estudiantes del area de la salud interesados en aprender a analizar y diagnosticar señales EKG esto se logra mediante un ecosistema web integral que procesa datos y señales reales provenientes de la base de datos clínica estandarizada **PTB-XL (PhysioNet)**, transformándolas en herramientas pedagógicas interactivas.
+Este repositorio constituye el portafolio técnico del proyecto Yuluka-EKG. Este proyecto aborda el uso de una herramienta de apoyo para estudiantes del area de la salud interesados en aprender a analizar y diagnosticar señales EKG, esto se logra mediante un ecosistema web integral que procesa datos y señales reales provenientes de la base de datos clínica estandarizada **PTB-XL (PhysioNet)**, transformándolas en herramientas pedagógicas interactivas.
 
 ### Componentes Principales:
 *   **DSP Pedagógico:** Filtros en tiempo real (SciPy: Notch 60 Hz, Butterworth 0.5-40 Hz y Savitzky-Golay) para la eliminación guiada de ruidos hospitalarios comunes (red eléctrica y respiración).
