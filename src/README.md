@@ -1,4 +1,4 @@
-# Yuluka-EKG — Monitor Clínico 
+# Yuluka-EKG 
 
 Plataforma web educativa para el estudio de electrocardiografía. Integra señales reales de la base de datos PTB-XL (PhysioNet), procesamiento digital de señales, un asistente IA y un sistema de evaluación con historial de progreso.
 
